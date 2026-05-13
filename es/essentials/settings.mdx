@@ -1,0 +1,174 @@
+---
+title: 'Configuración'
+description: 'Personaliza tu sitio con el archivo `docs.json`'
+icon: 'gear'
+---
+
+Cada sitio de Mintlify se configura a través del archivo `docs.json` en la raíz de tu proyecto. Los cambios surten efecto de inmediato en la previsualización local.
+
+## Identidad
+
+Establece el nombre, el tema y la identidad visual de tu sitio.
+
+```json docs.json
+{
+  "name": "Acme Docs",
+  "theme": "mint",
+  "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  }
+}
+```
+
+<ResponseField name="name" type="string" required>
+  El nombre de tu proyecto. Aparece en el título de la pestaña del navegador y en los metadatos del sitio.
+</ResponseField>
+
+<ResponseField name="theme" type="string">
+  El tema visual. Opciones: `mint`, `maple`, `willow`, `sequoia`, `prism`.
+</ResponseField>
+
+<ResponseField name="favicon" type="string">
+  Ruta a tu favicon. Se recomienda SVG para un renderizado nítido en todos los tamaños.
+</ResponseField>
+
+<ResponseField name="logo" type="object">
+  <Expandable title="Logo">
+    <ResponseField name="light" type="string">Logo mostrado en modo claro.</ResponseField>
+    <ResponseField name="dark" type="string">Logo mostrado en modo oscuro.</ResponseField>
+    <ResponseField name="href" type="string" default="/">URL a la que enlaza el logo.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+## Colores
+
+```json docs.json
+{
+  "colors": {
+    "primary": "#16A34A",
+    "light": "#07C983",
+    "dark": "#15803D"
+  }
+}
+```
+
+<ResponseField name="colors.primary" type="string" required>
+  Color principal de la marca. Se usa para resaltados, estados activos y acentos en modo claro.
+</ResponseField>
+
+<ResponseField name="colors.light" type="string">
+  Color primario para el modo oscuro.
+</ResponseField>
+
+<ResponseField name="colors.dark" type="string">
+  Se usa para botones y elementos interactivos importantes.
+</ResponseField>
+
+<ResponseField name="colors.background" type="object">
+  Sobrescribe el color de fondo predeterminado de la página.
+  <Expandable title="Background">
+    <ResponseField name="light" type="string">Color hexadecimal de fondo en modo claro.</ResponseField>
+    <ResponseField name="dark" type="string">Color hexadecimal de fondo en modo oscuro.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+## Barra de navegación
+
+Configura los enlaces de la barra de navegación superior y la llamada a la acción principal.
+
+```json docs.json
+{
+  "navbar": {
+    "links": [
+      { "label": "Support", "href": "mailto:support@example.com" }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://dashboard.example.com"
+    }
+  }
+}
+```
+
+<ResponseField name="navbar.links" type="array">
+  Enlaces de texto mostrados en la barra de navegación superior.
+  <Expandable title="Link">
+    <ResponseField name="label" type="string">Texto que se muestra en el enlace.</ResponseField>
+    <ResponseField name="href" type="string">URL a la que apunta el enlace.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="navbar.primary" type="object">
+  La llamada a la acción destacada en la esquina superior derecha.
+  <Expandable title="Primary">
+    <ResponseField name="type" type='"button" | "github"'>
+      `button` muestra un botón de CTA. `github` muestra una insignia con el conteo de estrellas.
+    </ResponseField>
+    <ResponseField name="label" type="string">Etiqueta del botón. Requerida cuando el tipo es `button`.</ResponseField>
+    <ResponseField name="href" type="string">URL a la que enlaza el botón o la insignia.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+## Navegación
+
+Organiza tus páginas en pestañas y grupos. Consulta la guía de [Navegación](/es/essentials/navigation) para más detalles.
+
+```json docs.json
+{
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": ["index", "quickstart"]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Blog",
+          "href": "https://example.com/blog",
+          "icon": "newspaper"
+        }
+      ]
+    }
+  }
+}
+```
+
+## Barra de herramientas contextual
+
+La barra de herramientas contextual flota en cada página y ofrece a los lectores acceso con un clic a herramientas de IA e integraciones. Consulta [Barra de herramientas contextual](/es/agent-ready/contextual) para ver la lista completa de opciones.
+
+```json docs.json
+{
+  "contextual": {
+    "options": ["copy", "view", "claude", "mcp", "cursor", "vscode"]
+  }
+}
+```
+
+## Pie de página
+
+```json docs.json
+{
+  "footer": {
+    "socials": {
+      "x": "https://x.com/yourhandle",
+      "github": "https://github.com/yourorg",
+      "linkedin": "https://linkedin.com/company/yourco"
+    }
+  }
+}
+```
+
+<ResponseField name="footer.socials" type="object">
+  Enlaces sociales que se muestran en el pie de página. Claves admitidas: `x`, `github`, `linkedin`, `discord`, `slack`, `facebook`, `instagram`, `website`.
+</ResponseField>

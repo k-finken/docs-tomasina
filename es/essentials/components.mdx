@@ -1,0 +1,207 @@
+---
+title: 'Componentes'
+description: 'Avisos, tarjetas, pasos, pestañas y más'
+icon: 'puzzle-piece'
+---
+
+Los componentes de Mintlify te permiten crear páginas de documentación ricas e interactivas usando MDX. Aquí tienes algunos de los más utilizados.
+
+Consulta la [vista general de componentes](https://mintlify.com/docs/components) en la documentación de Mintlify para ver la lista completa.
+
+## Avisos
+
+Usa avisos para llamar la atención sobre información importante.
+
+<Note>Una **Note** es para información general que ayuda al lector.</Note>
+
+<Tip>Un **Tip** resalta un atajo útil o una buena práctica.</Tip>
+
+<Warning>Un **Warning** señala algo que podría causar problemas.</Warning>
+
+<Info>Un aviso **Info** ofrece contexto complementario.</Info>
+
+```mdx
+<Note>Una **Note** es para información general que ayuda al lector.</Note>
+
+<Tip>Un **Tip** resalta un atajo útil o una buena práctica.</Tip>
+
+<Warning>Un **Warning** señala algo que podría causar problemas.</Warning>
+
+<Info>Un aviso **Info** ofrece contexto complementario.</Info>
+```
+
+## Tarjetas
+
+Las tarjetas enlazan a los lectores con otras páginas o recursos.
+
+<Columns cols={2}>
+  <Card title="Referencia de la API" icon="terminal" href="/es/api-reference/introduction">
+    Documentación generada automáticamente desde tu especificación OpenAPI.
+  </Card>
+  <Card title="Inicio rápido" icon="rocket" href="/es/quickstart">
+    Pon tu documentación en marcha en tres pasos.
+  </Card>
+</Columns>
+
+```mdx
+<Columns cols={2}>
+  <Card title="Referencia de la API" icon="terminal" href="/es/api-reference/introduction">
+    Documentación generada automáticamente desde tu especificación OpenAPI.
+  </Card>
+  <Card title="Inicio rápido" icon="rocket" href="/es/quickstart">
+    Pon tu documentación en marcha en tres pasos.
+  </Card>
+</Columns>
+```
+
+Usa `<Columns cols={N}>` para controlar el ancho de la cuadrícula. Las tarjetas sin `href` se renderizan como paneles informativos.
+
+## Pasos
+
+Los pasos presentan procedimientos numerados con claridad.
+
+<Steps>
+  <Step title="Instala el paquete">
+    ```bash
+    npm install my-package
+    ```
+  </Step>
+  <Step title="Inicializa">
+    Ejecuta el comando init en la raíz de tu proyecto.
+    ```bash
+    npx my-package init
+    ```
+  </Step>
+  <Step title="Listo">
+    Empieza a usar el paquete en tu código.
+  </Step>
+</Steps>
+
+````mdx
+<Steps>
+  <Step title="Instala el paquete">
+    ```bash
+    npm install my-package
+    ```
+  </Step>
+  <Step title="Inicializa">
+    Ejecuta el comando init en la raíz de tu proyecto.
+  </Step>
+  <Step title="Listo">
+    Empieza a usar el paquete en tu código.
+  </Step>
+</Steps>
+````
+
+## Pestañas
+
+Las pestañas permiten a los lectores alternar entre contenido alternativo: distintos lenguajes, entornos o plataformas.
+
+<Tabs>
+  <Tab title="npm">
+    ```bash
+    npm install my-package
+    ```
+  </Tab>
+  <Tab title="yarn">
+    ```bash
+    yarn add my-package
+    ```
+  </Tab>
+  <Tab title="pnpm">
+    ```bash
+    pnpm add my-package
+    ```
+  </Tab>
+</Tabs>
+
+````mdx
+<Tabs>
+  <Tab title="npm">
+    ```bash
+    npm install my-package
+    ```
+  </Tab>
+  <Tab title="yarn">
+    ```bash
+    yarn add my-package
+    ```
+  </Tab>
+  <Tab title="pnpm">
+    ```bash
+    pnpm add my-package
+    ```
+  </Tab>
+</Tabs>
+````
+
+## Acordeones
+
+Los acordeones ocultan contenido detrás de un interruptor; son útiles para preguntas frecuentes o detalles opcionales.
+
+<AccordionGroup>
+  <Accordion title="¿Qué hace este producto?">
+    Una respuesta breve a la primera pregunta. Hazla concisa.
+  </Accordion>
+  <Accordion title="¿Cómo se calcula el precio?">
+    Otra respuesta aquí. Usa tanto espacio como necesites.
+  </Accordion>
+</AccordionGroup>
+
+```mdx
+<AccordionGroup>
+  <Accordion title="¿Qué hace este producto?">
+    Una respuesta breve a la primera pregunta.
+  </Accordion>
+  <Accordion title="¿Cómo se calcula el precio?">
+    Otra respuesta aquí.
+  </Accordion>
+</AccordionGroup>
+```
+
+## Marcos
+
+Envuelve imágenes u otro contenido en un `Frame` para añadir un borde con estilo y esquinas redondeadas.
+
+<Frame>
+  <img src="https://mintlify-assets.b-cdn.net/bigbend.jpg" alt="Paisaje de Big Bend" />
+</Frame>
+
+```mdx
+<Frame>
+  <img src="/images/screenshot.png" alt="Captura de pantalla de la app" />
+</Frame>
+```
+
+## Grupos de código
+
+`CodeGroup` muestra varios fragmentos de código como pestañas, ideal para mostrar el mismo ejemplo en distintos lenguajes.
+
+<CodeGroup>
+  ```typescript TypeScript
+  const response = await fetch('https://api.example.com/users');
+  const users = await response.json();
+  ```
+
+  ```python Python
+  import requests
+  response = requests.get('https://api.example.com/users')
+  users = response.json()
+  ```
+
+  ```bash curl
+  curl https://api.example.com/users
+  ```
+</CodeGroup>
+
+````mdx
+<CodeGroup>
+  ```typescript TypeScript
+  const response = await fetch('https://api.example.com/users');
+  ```
+
+  ```python Python
+  response = requests.get('https://api.example.com/users')
+  ```
+</CodeGroup>
+````
