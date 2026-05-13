@@ -1,0 +1,85 @@
+---
+title: 'Visibilidad'
+description: 'Muestra contenido distinto a humanos y agentes de IA'
+icon: 'eye'
+---
+
+El componente `Visibility` permite que una sola página atienda a dos audiencias: humanos que leen en la web y agentes de IA que procesan la salida en Markdown. El contenido marcado como `for="humans"` aparece en la página renderizada pero se excluye de las exportaciones a Markdown. El contenido marcado como `for="agents"` se oculta en la web pero se incluye en Markdown.
+
+Esto significa que puedes escribir instrucciones conversacionales y centradas en la interfaz para humanos, e instrucciones estructuradas y legibles por máquinas para la IA, sin mantener dos páginas separadas.
+
+## Cómo funciona
+
+Mintlify sirve cada página en dos URL:
+
+- `https://docs.example.com/page`: el sitio renderizado, para humanos
+- `https://docs.example.com/page.md`: el Markdown sin procesar, para agentes de IA
+
+`Visibility` controla qué aparece en cada URL.
+
+## Ejemplo
+
+```mdx
+<Visibility for="humans">
+  <Steps>
+    <Step title="Abre el panel">
+      Navega a [dashboard.example.com](https://dashboard.example.com) e inicia sesión.
+    </Step>
+    <Step title="Crea una clave de API">
+      Ve a **Settings → API Keys** y haz clic en **New key**.
+    </Step>
+  </Steps>
+</Visibility>
+
+<Visibility for="agents">
+  Para autenticarte, envía una solicitud POST a `/v1/auth/token` con el correo
+  y la contraseña del usuario en el cuerpo de la solicitud. La respuesta incluye un
+  token bearer válido por 24 horas. Pasa este token como `Authorization: Bearer <token>`
+  en todas las solicitudes posteriores.
+</Visibility>
+```
+
+Los lectores humanos ven el tutorial paso a paso de la interfaz. Los agentes de IA que procesan el Markdown obtienen las instrucciones directas de la API.
+
+## Props
+
+<ResponseField name="for" type='"humans" | "agents"' required>
+  - `"humans"`: visible en la página web renderizada, excluido de la exportación `.md`
+  - `"agents"`: oculto en la página web renderizada, incluido en la exportación `.md`
+</ResponseField>
+
+## Cuándo usarlo
+
+<Columns cols={2}>
+  <Card title="Flujos de onboarding" icon="person-walking-arrow-right">
+    Muestra capturas de la interfaz y clics de botón a los humanos. Ofrece a los agentes las llamadas a la API equivalentes.
+  </Card>
+  <Card title="Guías de configuración" icon="sliders">
+    Muestra un panel visual de ajustes a los humanos. Ofrece a los agentes el JSON equivalente o las opciones de CLI.
+  </Card>
+  <Card title="Mensajes de error" icon="triangle-exclamation">
+    Muestra una explicación amigable a los humanos. Ofrece a los agentes códigos de error estructurados y pasos de remediación.
+  </Card>
+  <Card title="Páginas conceptuales" icon="lightbulb">
+    Incluye diagramas detallados y narrativa para humanos. Ofrece a los agentes un resumen estructurado y conciso.
+  </Card>
+</Columns>
+
+## Combinación con Prompt
+
+`Visibility` y `Prompt` se complementan bien. Usa `Visibility` para dar a los agentes contexto estructurado, y luego usa `Prompt` para ofrecer a los lectores humanos un prompt con el que puedan preguntar a una IA sobre ese mismo contenido.
+
+```mdx
+<Visibility for="agents">
+  ## Esquema de autenticación
+  - Método: Token bearer
+  - Cabecera: `Authorization: Bearer <token>`
+  - TTL del token: 86400 segundos
+  - Endpoint de refresco: POST /v1/auth/refresh
+</Visibility>
+
+<Prompt description="Pregunta sobre autenticación" icon="lock">
+  Explica cómo funciona la autenticación en esta API y muéstrame código de ejemplo
+  para obtener un token y hacer una solicitud autenticada.
+</Prompt>
+```

@@ -1,0 +1,75 @@
+---
+title: 'Componente Prompt'
+description: 'Incrusta prompts de IA compartibles que los lectores pueden copiar o abrir en Cursor'
+icon: 'robot'
+---
+
+El componente `Prompt` muestra un prompt de IA preconstruido con acciones de un clic para copiarlo al portapapeles o abrirlo directamente en Cursor. Es ideal para cualquier página de documentación donde quieras ofrecer a los lectores un prompt listo para usar.
+
+## Uso básico
+
+<Prompt description="Resume este endpoint de la API">
+Eres un redactor técnico. Dada la siguiente documentación del endpoint de la API, escribe un resumen de un párrafo que explique qué hace el endpoint, qué entradas requiere y qué devuelve. Sé conciso y usa un lenguaje sencillo.
+</Prompt>
+
+```mdx
+<Prompt description="Resume este endpoint de la API">
+Eres un redactor técnico. Dada la siguiente documentación del endpoint de la API,
+escribe un resumen de un párrafo que explique qué hace el endpoint, qué
+entradas requiere y qué devuelve. Sé conciso y usa un lenguaje sencillo.
+</Prompt>
+```
+
+## Con integración con Cursor
+
+Añade `actions={["copy", "cursor"]}` para mostrar también un botón "Abrir en Cursor". Esto es especialmente útil para prompts que los lectores usarán en su editor.
+
+<Prompt
+  description="Genera un cliente de API tipado"
+  icon="code"
+  actions={["copy", "cursor"]}
+>
+Eres un desarrollador experto en TypeScript. Dada la siguiente especificación OpenAPI, genera un cliente de API totalmente tipado usando fetch nativo. Incluye:
+- Una clase base de cliente con baseUrl y cabeceras de autenticación configurables
+- Un método por endpoint, con parámetros de solicitud y tipos de respuesta tipados
+- Comentarios JSDoc en cada método
+No uses ninguna biblioteca HTTP de terceros.
+</Prompt>
+
+```mdx
+<Prompt
+  description="Genera un cliente de API tipado"
+  icon="code"
+  actions={["copy", "cursor"]}
+>
+Eres un desarrollador experto en TypeScript. Dada la siguiente especificación
+OpenAPI, genera un cliente de API totalmente tipado usando fetch nativo...
+</Prompt>
+```
+
+## Props
+
+<ResponseField name="description" type="string" required>
+  Texto del encabezado mostrado encima del contenido del prompt. Admite Markdown.
+</ResponseField>
+
+<ResponseField name="children" type="string" required>
+  El texto del prompt que se copia o se envía a Cursor.
+</ResponseField>
+
+<ResponseField name="actions" type="array">
+  Qué botones de acción mostrar. Opciones: `"copy"`, `"cursor"`. Por defecto, `["copy"]`.
+</ResponseField>
+
+<ResponseField name="icon" type="string">
+  Un icono mostrado junto a la descripción. Admite nombres de iconos de Font Awesome, Lucide y Tabler, URL de imágenes o SVG en línea.
+</ResponseField>
+
+## Cuándo usarlo
+
+El componente `Prompt` funciona bien en cualquier lugar donde estés enseñando a los lectores a trabajar con IA:
+
+- **Guías de inicio rápido**: ofrece a los lectores un prompt para generar su primera integración
+- **Páginas de referencia de la API**: incluye un prompt para generar código cliente a partir de la especificación
+- **Guías de resolución de problemas**: incrusta un prompt de depuración que los lectores puedan ejecutar con sus propios registros de error
+- **Páginas conceptuales**: añade un prompt para explorar el tema con un asistente de IA

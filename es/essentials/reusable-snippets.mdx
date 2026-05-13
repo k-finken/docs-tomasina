@@ -1,0 +1,100 @@
+---
+title: "Fragmentos reutilizables"
+description: "Escribe una vez, reutiliza en todas partes. Usa fragmentos para mantener el contenido sincronizado entre páginas"
+icon: "recycle"
+---
+
+Cualquier contenido que veas repetido entre páginas es un buen candidato para convertirse en un fragmento. Crea el archivo una vez en el directorio `snippets/`, impórtalo donde lo necesites y las actualizaciones se propagarán automáticamente a todas partes.
+
+<Note>
+  Los archivos dentro de `snippets/` no se renderizan como páginas independientes. Solo aparecen donde los importas.
+</Note>
+
+## Fragmentos de contenido
+
+El patrón más sencillo: escribe contenido MDX en un archivo de fragmento e impórtalo como un componente.
+
+```mdx snippets/prerequisites.mdx
+Antes de empezar, asegúrate de tener:
+- Node.js 18 o superior
+- Una clave de API desde tu [panel](https://dashboard.example.com)
+```
+
+Impórtalo en cualquier página usando una ruta relativa a la raíz:
+
+```mdx your-page.mdx
+---
+title: Instalar el SDK
+---
+
+import Prerequisites from '/snippets/prerequisites.mdx';
+
+<Prerequisites />
+
+## Instalación
+...
+```
+
+También puedes usar importaciones relativas, lo que habilita la navegación con CMD+clic al fragmento en tu editor:
+
+```mdx
+import Prerequisites from '../snippets/prerequisites.mdx';
+```
+
+## Fragmentos de variables
+
+Exporta constantes con nombre desde un archivo de fragmento para reutilizar valores como nombres de productos, números de versión o URL.
+
+```mdx snippets/vars.mdx
+export const sdkVersion = '3.2.0';
+export const baseUrl = 'https://api.example.com/v1';
+```
+
+Impórtalos y úsalos en línea:
+
+```mdx your-page.mdx
+import { sdkVersion, baseUrl } from '/snippets/vars.mdx';
+
+La versión actual del SDK es **{sdkVersion}**.
+
+Todas las solicitudes van a `{baseUrl}`.
+```
+
+## Fragmentos de componente
+
+Para fragmentos que necesitan variar según dónde se usen, exporta un componente con sintaxis de función flecha que acepte props.
+
+```mdx snippets/endpoint-note.mdx
+export const EndpointNote = ({ method, path }) => (
+  <Note>
+    Esta guía cubre el endpoint <code>{method} {path}</code>.
+    Consulta la <a href="/api-reference/introduction">referencia de la API</a> para más detalles.
+  </Note>
+);
+```
+
+* Usa sintaxis de función flecha (`const Foo = () => ...`).
+* La palabra clave `function` no es compatible en archivos de fragmento.
+* La sintaxis MDX no se compila dentro del cuerpo de funciones flecha. Usa etiquetas HTML simples ahí, o usa una exportación por defecto en su lugar.
+
+Pasa props cuando lo renderices:
+
+```mdx your-page.mdx
+import { EndpointNote } from '/snippets/endpoint-note.mdx';
+
+<EndpointNote method="POST" path="/v1/users" />
+```
+
+## Fragmentos que importan fragmentos
+
+Los fragmentos pueden importar otros fragmentos, lo cual es útil para componer secciones compartidas más grandes a partir de piezas más pequeñas.
+
+```mdx snippets/auth-intro.mdx
+import AuthNote from '/snippets/auth-note.mdx';
+
+## Autenticación
+
+Todos los endpoints requieren un token bearer.
+
+<AuthNote />
+```
